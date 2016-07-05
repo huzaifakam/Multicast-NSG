@@ -1,4 +1,0 @@
-0xb9b00072	SetPacketsSent	/home/lion/DetectPacketTTL/NetfilterHook	EXPORT_SYMBOL
-0x649d7f96	NumberPackets	/home/lion/DetectPacketTTL/NetfilterHook	EXPORT_SYMBOL
-0x9ce7faee	ExtractPacketsSent	/home/lion/DetectPacketTTL/NetfilterHook	EXPORT_SYMBOL
-0xba908922	SentPackets	/home/lion/DetectPacketTTL/NetfilterHook	EXPORT_SYMBOL
