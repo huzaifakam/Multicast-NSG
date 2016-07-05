@@ -1,0 +1,1 @@
+cmd_/home/lion/SelectInitialLeader/NetfilterHook.ko := ld -r -m elf_i386 -T /usr/src/linux-3.13.2/scripts/module-common.lds --build-id  -o /home/lion/SelectInitialLeader/NetfilterHook.ko /home/lion/SelectInitialLeader/NetfilterHook.o /home/lion/SelectInitialLeader/NetfilterHook.mod.o
