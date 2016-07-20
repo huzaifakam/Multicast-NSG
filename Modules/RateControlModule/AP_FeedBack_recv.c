@@ -5,8 +5,13 @@
 #include <linux/tcp.h>
 #include <linux/udp.h>
 #include <linux/inet.h>
+#include "/usr/src/linux-4.3/drivers/net/wireless/ath/ath9k/ath9k.h"
 
 static struct nf_hook_ops nfho;
+float rates[12] = {1.0, 2.0, 5.5, 11.0, 6.0, 9.0, 12.0, 18.0, 24.0, 36.0, 48.0, 54.0};
+int p_recv[4] = {0};
+float p_rates[4] = {0};
+extern struct ath_softc* Pointer;
 
 unsigned int hook_func(const struct nf_hook_ops *ops, struct sk_buff *skb, const struct net_device *in, const struct net_device *out, int (*okfn)(struct sk_buff*))
 {
@@ -57,9 +62,7 @@ unsigned int hook_func(const struct nf_hook_ops *ops, struct sk_buff *skb, const
 	else
 		j=j+1;
     }
-    float rates[12] = {1.0, 2.0, 5.5, 11.0, 6.0, 9.0, 12.0, 18.0, 24.0, 36.0, 48.0, 54.0};
-    int p_recv[4] = {0};
-    float p_rates[4] = {0};
+
     j=1;
     for (k=0; k<12 && j<3; k++)
     {	
@@ -87,8 +90,9 @@ unsigned int hook_func(const struct nf_hook_ops *ops, struct sk_buff *skb, const
 	}
     }
     int t_puts[4] = {0};
-    t_puts[0] = p_rates[0]*p_recv[0]/70;
-    for (j=1; j<4; j++)
+    int packetsMax = Pointer->PacketsSent;
+    t_puts[0] = p_rates[0]*p_recv[0]/packetsMax;
+    for (j=1; j < 4; j++)
 	t_puts[j] = p_rates[j]*p_recv[j]/10;
     int max = 0;
     for (j=1; j<4; j++)
@@ -96,7 +100,12 @@ unsigned int hook_func(const struct nf_hook_ops *ops, struct sk_buff *skb, const
 	if (t_puts[j]>t_puts[max])
 		max = j;
     }
-    float max_rate = p_rates[max];
+    double best_rate = p_rates[max];
+
+    printk("The rate selected is: %d\n",best_rate);
+
+    Pointer->PacketsSent = 0;
+    Pointer->DefaultMultiCastRate = max;
     return NF_ACCEPT;
 }
 

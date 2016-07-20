@@ -80,7 +80,7 @@ static void SendMultiCastPacket(void)
 		}
 
 	CurrentPacketSendingRate = GetRateToSendPacket();
-	//ModifyTTLfield();*/
+	ModifyTTLfield();/**/
 	UpdateDebugFsSendingRateAndPacketCount();
 	ReCalculateIPCheckSum();
 }
