@@ -958,6 +958,7 @@ struct ath_softc {
 	unsigned int MultiCastRate;
 	unsigned int DefaultMultiCastRate;
 	unsigned int PacketsSent;
+	unsigned int filled;
 	/////////////////////Huzaifa/////////////////////
 
 	struct ieee80211_hw *hw;

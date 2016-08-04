@@ -17,7 +17,7 @@
 #include <linux/string.h>
 #include <asm/unaligned.h>
 
-#define THRESHOLD 100;
+#define THRESHOLD 100
 
 unsigned int MultiCastAddress;
 int counter;
@@ -49,11 +49,12 @@ char * Message = "1\n";
 
 #define FeedPacketPacketInterval 100
 unsigned int TotalPacketsReceivedInCurrentInterval = 0;
-int RateTable[17] = {0};
+int RateTable[12] = {0};
 
 unsigned int hook_func(const struct nf_hook_ops *ops, struct sk_buff *skb1, const struct net_device *in, const struct net_device *out, int (*okfn)(struct sk_buff*))
 {
     int i;
+    char* table[12];
     sock_buff = skb1;
     ip_header = (struct iphdr *)skb_network_header(sock_buff);
     unsigned int TempSourceAddress = (unsigned int)ip_header->saddr;
@@ -64,15 +65,20 @@ unsigned int hook_func(const struct nf_hook_ops *ops, struct sk_buff *skb1, cons
         {
             RateTable[ip_header -> ttl]++;
             counter++;
-         //   RateTable[ip_header->id >> 12]++;
+            if (counter%10 == 0) printk("counter incremented by 10\n");
             if (counter >= THRESHOLD) {
                 counter = 0;
-                Message = (char *)RateTable;
+                for (i = 0; i < 12; i++)
+                    table[i] = (char *)RateTable[i];
+
+                Message = table;
                 SendPacket(Message); 
 
-                for (i = 0; i < 17; i++) {
+                for (i = 0; i < 12; i++) {
+                	printk("%d ", RateTable[i]);
                     RateTable[i] = 0;
                 }
+                printk(" :counter: %d\n",counter);
 
             }
 
@@ -85,45 +91,22 @@ unsigned int hook_func(const struct nf_hook_ops *ops, struct sk_buff *skb1, cons
 
 int init_module(void)
 {
-
+    int i = 0;
     nfho.hook = (nf_hookfn*) hook_func;
     nfho.hooknum = 0;  
     nfho.pf = PF_INET;
     nfho.priority = NF_IP_PRI_FIRST;
     nf_register_hook(&nfho);
+    printk("ClientModuleFinal: Hook Registered\n");
 
     MultiCastAddress = in_aton("224.0.67.67");
-    SourceAddress = in_aton("192.168.2.106");
+    SourceAddress = in_aton("192.168.8.83");
     DestinationAddress = in_aton("224.0.67.67");
     counter = 0;
-  //   unsigned char Message_[69];
-  //   Message_[68] = '\0';
-
-
-     int i = 0; 
-
-
-    for (i = 0; i < 17; i++) {
-		RateTable[i] = 97 + i;
-    }
-
-  //   for (i = 0; i < 17; i=i+4) {
-		// Message_[i] =  RateTable[i] & 0xFF000000;
-		// Message_[i + 1] =  RateTable[i] & 0x00FF0000;
-		// Message_[i + 2] =  RateTable[i] & 0x0000FF00;
-		// Message_[i + 3] =  RateTable[i] & 0x000000FF;
-  //   }
-
-  //   for (i = 0; i < 17 * 4; i++) {
-	 //    printk("Message: %d, %c\n", i, Message_[i]);
-  //   }
-
-
-
-    // for (i = 0; i < 10; i++) {
-    // 	SendPacket((char*)RateTable);
-    // }
-
+  /*
+	for (i = 0; i < 100; i++)
+		SendPacket(RateTable);
+*/
 	printk("Size of int %d\n",sizeof(int));
     printk("Hook Registered\n");
     return 0;
@@ -137,16 +120,15 @@ void cleanup_module(void)
 
 static bool SendPacket(unsigned char * Message)
 {
-
     DataLength = strlen(Message);
-    DataLength = 17 * 4 + 1;
+    DataLength = 12 * 4 + 1;
 
     printk("Message Length: %d\n", DataLength);
 
     UDPLength = DataLength + sizeof(*UDPHeader); 
     IPLength = UDPLength + sizeof(*IPHeader); 
- 
-    OutputDevice = (struct net_device*)(dev_get_by_name(&init_net,"wlan0"));
+
+    OutputDevice = (struct net_device*)(dev_get_by_name(&init_net,"wlan1"));
     TotalLength = IPLength + LL_RESERVED_SPACE(OutputDevice);
 
     skb = alloc_skb(TotalLength, GFP_ATOMIC);
@@ -194,23 +176,23 @@ static bool SendPacket(unsigned char * Message)
     skb_reset_mac_header(skb);
 
     skb->protocol = ETHHeader->h_proto = htons(ETH_P_IP);
+	//e8:de:27:13:1f:0f
+    ETHHeader->h_source[0] = 0xe8;
+    ETHHeader->h_source[1] = 0xde;
+    ETHHeader->h_source[2] = 0x27;
+    ETHHeader->h_source[3] = 0x13;
+    ETHHeader->h_source[4] = 0x1f;
+    ETHHeader->h_source[5] = 0x0f;
 
-    ETHHeader->h_source[0] = 0x48;
-    ETHHeader->h_source[1] = 0x51;
-    ETHHeader->h_source[2] = 0xb7;
-    ETHHeader->h_source[3] = 0x36;
-    ETHHeader->h_source[4] = 0xae;
-    ETHHeader->h_source[5] = 0x84;
-
-    ETHHeader->h_dest[0] = 0xe8;
+    ETHHeader->h_dest[0] = 0xe5;
     ETHHeader->h_dest[1] = 0xde;
-    ETHHeader->h_dest[2] = 0x27;
-    ETHHeader->h_dest[3] = 0x13;
-    ETHHeader->h_dest[4] = 0x1f;
-    ETHHeader->h_dest[5] = 0x0f;
+    ETHHeader->h_dest[2] = 0x24;
+    ETHHeader->h_dest[3] = 0x0b;
+    ETHHeader->h_dest[4] = 0x93;
+    ETHHeader->h_dest[5] = 0xc3;
 
-    skb->dev = (struct net_device*)(dev_get_by_name(&init_net,"wlan0"));
-    skb->pkt_type = PACKET_OUTGOING;
+    skb->dev = (struct net_device*)(dev_get_by_name(&init_net,"wlan1"));
+   // skb->pkt_type = PACKET_OUTGOING;
     dev_queue_xmit(skb);
     return 1;
 }

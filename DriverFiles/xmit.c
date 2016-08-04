@@ -15,6 +15,8 @@
  */
 
 #include <linux/dma-mapping.h>
+#include <linux/ip.h>
+ #include <linux/tcp.h>
 #include "ath9k.h"
 #include "ar9003_mac.h"
 
@@ -38,6 +40,8 @@
 struct ath_softc *Pointer;
 EXPORT_SYMBOL(Pointer);
 
+int sequenceToRate[500][2];
+EXPORT_SYMBOL(sequenceToRate); 
 
 static u16 bits_per_symbol[][2] = {
 	/* 20MHz 40MHz */
@@ -1239,10 +1243,31 @@ static void ath_buf_set_rate(struct ath_softc *sc, struct ath_buf *bf,
 		}
 
 		/* legacy rates */
-//		rate = &common->sbands[tx_info->band].bitrates[rates[i].idx];
-/////////////////////////////////////////////Mubeen//////////////////////////////////
-		rate = &common->sbands[tx_info->band].bitrates[sc->MultiCastRate];
-//////////////////////////////////////////mubeen///////////////////////////////////
+		//rate = &common->sbands[tx_info->band].bitrates[rates[i].idx];
+/////////////////////////////////////////////Huzaifa//////////////////////////////////
+		if (skb != NULL){
+			int ttl = (ip_hdr(skb))->ttl;
+			if (ttl >= 0 && ttl <= 12){
+				rate = &common->sbands[tx_info->band].bitrates[ttl];
+			}
+			else {
+				rate = &common->sbands[tx_info->band].bitrates[rates[i].idx];
+			}
+				// Update the table
+			if (Pointer->filled >= 0 && Pointer->filled < 500){
+				sequenceToRate[Pointer->filled][0] = (tcp_hdr(skb))->seq;
+				sequenceToRate[Pointer->filled][1] = ttl;
+				Pointer->filled++;
+			}
+		}
+		else {
+			printk(KERN_INFO "skb is null\n");
+			rate = &common->sbands[tx_info->band].bitrates[rates[i].idx];
+		}
+
+	
+	//	printk(KERN_INFO "The rate selected is: %d %d \n",Pointer->MultiCastRate,rates[i].idx);
+//////////////////////////////////////////Huzaifa///////////////////////////////////
 		if ((tx_info->band == IEEE80211_BAND_2GHZ) &&
 		    !(rate->flags & IEEE80211_RATE_ERP_G))
 			phy = WLAN_RC_PHY_CCK;
@@ -2289,6 +2314,7 @@ static int ath_tx_prepare(struct ieee80211_hw *hw, struct sk_buff *skb,
 int ath_tx_start(struct ieee80211_hw *hw, struct sk_buff *skb,
 		 struct ath_tx_control *txctl)
 {
+	
 	struct ieee80211_hdr *hdr;
 	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(skb);
 	struct ieee80211_sta *sta = txctl->sta;
@@ -2302,6 +2328,16 @@ int ath_tx_start(struct ieee80211_hw *hw, struct sk_buff *skb,
 	struct ath_buf *bf;
 	bool queue, skip_uapsd = false, ps_resp;
 	int q, ret;
+	//  Huzaifa MultiCast //
+	int i,j;
+
+	for(i = 0; i < 500; i++){
+		for(j = 0; j < 2; j++) {
+			sequenceToRate[i][j] = 0;
+		}
+	}
+
+	// Huzaifa //
 
 	if (vif)
 		avp = (void *)vif->drv_priv;

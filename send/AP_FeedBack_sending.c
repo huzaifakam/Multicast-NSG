@@ -20,7 +20,7 @@
 #include <linux/netfilter_ipv4.h>
 #include <linux/skbuff.h>
 #include <asm/unaligned.h>
-#include "/usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/ath9k.h"
+#include "/usr/src/linux-4.6.3/drivers/net/wireless/ath/ath9k/ath9k.h"
 #include <net/checksum.h>
 #include <net/ip.h>
 
@@ -47,11 +47,11 @@ struct sk_buff *sock_buff;
 struct udphdr *udp_header;          //udp header struct (not used)
 struct iphdr *ip_header;            //ip header struct
 
-static int RandomMultiCastRatePool[16] = {0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+static int RandomMultiCastRatePool[12] = {0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
 
 #define FeedBackPacketInterval 100
 #define ProbingChance 70
-#define MaxMCSIndex 15
+#define MaxMCSIndex 12
 
 int MaxPacketPerInterval[2] = {0};
 int CurrentSendingRates[4] = {0};
@@ -93,8 +93,9 @@ unsigned int hook_func(unsigned int hooknum, struct sk_buff *skb, const struct n
         DestinationAddress = (unsigned int)ip_header->daddr;
         if(!sock_buff) { return NF_ACCEPT;}
         
-        if ((ip_header->protocol==17) && (DestinationAddress == in_aton("192.168.8.76")))
+        if ((ip_header->protocol==17) && (DestinationAddress == in_aton("224.0.67.67")))
         {     
+//		printk("Pointer->MultiCastRate: %d\n", Pointer->MultiCastRate);
           	SendMultiCastPacket();
           	return NF_ACCEPT;
         }
@@ -104,10 +105,13 @@ unsigned int hook_func(unsigned int hooknum, struct sk_buff *skb, const struct n
  
 int init_module()
 {
-        nfho.hook = hook_func;
+        nfho.hook = (nf_hookfn *)hook_func;
         nfho.hooknum = NF_INET_LOCAL_OUT;
         nfho.pf = PF_INET;
         nfho.priority = NF_IP_PRI_FIRST;
+       // Pointer->PacketsSent = 0;
+       // Pointer->MultiCastRate = 10;
+       // Pointer->DefaultMultiCastRate = 10;
  		nf_register_hook(&nfho);
  		CalculateMaxPacketPerInterval();
         printk(KERN_INFO "init_module() called\n");
@@ -273,6 +277,7 @@ static int GetRateToSendPacket(void)
 static void ModifyTTLfield(void)
 {
 	ip_header->ttl = CurrentPacketSendingRate;
+//	printk("TTL: %d\n", ip_header->ttl);
 	return;
 }
 
@@ -280,7 +285,7 @@ static void UpdateDebugFsSendingRateAndPacketCount(void)
 {
 	Pointer->MultiCastRate = CurrentPacketSendingRate;
 	ip_header->id = CurrentPacketSendingRate << 12;
-	
+	//printk(KERN_INFO "FeedBack Sending Module: CurrentPacketSendingRate %d Pointer->DefaultMultiCastRate %d Pointer->MultiCastRate %d \n",CurrentPacketSendingRate,Pointer->DefaultMultiCastRate,Pointer->MultiCastRate);
 	PacketCountInModule++;
 	Pointer->PacketsSent = PacketCountInModule;
 }

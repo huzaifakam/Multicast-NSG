@@ -1,84 +1,28 @@
-cmd_/home/lion/SelectInitialLeader/NetfilterHook.o := gcc -Wp,-MD,/home/lion/SelectInitialLeader/.NetfilterHook.o.d  -nostdinc -isystem /usr/lib/gcc/i686-linux-gnu/4.8/include -I/usr/src/linux-3.13.2/arch/x86/include -Iarch/x86/include/generated  -Iinclude -I/usr/src/linux-3.13.2/arch/x86/include/uapi -Iarch/x86/include/generated/uapi -I/usr/src/linux-3.13.2/include/uapi -Iinclude/generated/uapi -include /usr/src/linux-3.13.2/include/linux/kconfig.h -D__KERNEL__ -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -Werror-implicit-function-declaration -Wno-format-security -fno-delete-null-pointer-checks -O2 -m32 -msoft-float -mregparm=3 -freg-struct-return -mno-mmx -mno-sse -fno-pic -mpreferred-stack-boundary=2 -march=i686 -mtune=generic -maccumulate-outgoing-args -Wa,-mtune=generic32 -ffreestanding -fstack-protector -DCONFIG_AS_CFI=1 -DCONFIG_AS_CFI_SIGNAL_FRAME=1 -DCONFIG_AS_CFI_SECTIONS=1 -DCONFIG_AS_AVX=1 -DCONFIG_AS_AVX2=1 -pipe -Wno-sign-compare -fno-asynchronous-unwind-tables -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -Wframe-larger-than=1024 -Wno-unused-but-set-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -g -pg -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fconserve-stack -Werror=implicit-int -Werror=strict-prototypes -DCC_HAVE_ASM_GOTO  -DMODULE  -D"KBUILD_STR(s)=\#s" -D"KBUILD_BASENAME=KBUILD_STR(NetfilterHook)"  -D"KBUILD_MODNAME=KBUILD_STR(NetfilterHook)" -c -o /home/lion/SelectInitialLeader/.tmp_NetfilterHook.o /home/lion/SelectInitialLeader/NetfilterHook.c
+cmd_/home/sven/Desktop/temp/ClientModuleFinal.o := gcc -Wp,-MD,/home/sven/Desktop/temp/.ClientModuleFinal.o.d  -nostdinc -isystem /usr/lib/gcc/i686-linux-gnu/4.8/include -I/usr/src/linux-3.13.2/arch/x86/include -Iarch/x86/include/generated  -Iinclude -I/usr/src/linux-3.13.2/arch/x86/include/uapi -Iarch/x86/include/generated/uapi -I/usr/src/linux-3.13.2/include/uapi -Iinclude/generated/uapi -include /usr/src/linux-3.13.2/include/linux/kconfig.h -D__KERNEL__ -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -Werror-implicit-function-declaration -Wno-format-security -fno-delete-null-pointer-checks -O2 -m32 -msoft-float -mregparm=3 -freg-struct-return -mno-mmx -mno-sse -fno-pic -mpreferred-stack-boundary=2 -march=i686 -mtune=generic -maccumulate-outgoing-args -Wa,-mtune=generic32 -ffreestanding -fstack-protector -DCONFIG_AS_CFI=1 -DCONFIG_AS_CFI_SIGNAL_FRAME=1 -DCONFIG_AS_CFI_SECTIONS=1 -DCONFIG_AS_AVX=1 -DCONFIG_AS_AVX2=1 -pipe -Wno-sign-compare -fno-asynchronous-unwind-tables -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -Wframe-larger-than=1024 -Wno-unused-but-set-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -g -pg -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fconserve-stack -Werror=implicit-int -Werror=strict-prototypes -DCC_HAVE_ASM_GOTO  -DMODULE  -D"KBUILD_STR(s)=\#s" -D"KBUILD_BASENAME=KBUILD_STR(ClientModuleFinal)"  -D"KBUILD_MODNAME=KBUILD_STR(ClientModuleFinal)" -c -o /home/sven/Desktop/temp/.tmp_ClientModuleFinal.o /home/sven/Desktop/temp/ClientModuleFinal.c
 
-source_/home/lion/SelectInitialLeader/NetfilterHook.o := /home/lion/SelectInitialLeader/NetfilterHook.c
+source_/home/sven/Desktop/temp/ClientModuleFinal.o := /home/sven/Desktop/temp/ClientModuleFinal.c
 
-deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
-  include/linux/netpoll.h \
-    $(wildcard include/config/netpoll.h) \
-  include/linux/netdevice.h \
-    $(wildcard include/config/dcb.h) \
-    $(wildcard include/config/wlan.h) \
-    $(wildcard include/config/ax25.h) \
-    $(wildcard include/config/mac80211/mesh.h) \
-    $(wildcard include/config/net/ipip.h) \
-    $(wildcard include/config/net/ipgre.h) \
-    $(wildcard include/config/ipv6/sit.h) \
-    $(wildcard include/config/ipv6/tunnel.h) \
-    $(wildcard include/config/rps.h) \
-    $(wildcard include/config/smp.h) \
+deps_/home/sven/Desktop/temp/ClientModuleFinal.o := \
+  include/linux/module.h \
     $(wildcard include/config/sysfs.h) \
-    $(wildcard include/config/xps.h) \
-    $(wildcard include/config/numa.h) \
-    $(wildcard include/config/bql.h) \
-    $(wildcard include/config/rfs/accel.h) \
-    $(wildcard include/config/fcoe.h) \
-    $(wildcard include/config/net/poll/controller.h) \
-    $(wildcard include/config/net/rx/busy/poll.h) \
-    $(wildcard include/config/libfcoe.h) \
-    $(wildcard include/config/wireless/ext.h) \
-    $(wildcard include/config/vlan/8021q.h) \
-    $(wildcard include/config/net/dsa.h) \
-    $(wildcard include/config/net/ns.h) \
-    $(wildcard include/config/netprio/cgroup.h) \
-    $(wildcard include/config/net/dsa/tag/dsa.h) \
-    $(wildcard include/config/net/dsa/tag/trailer.h) \
-    $(wildcard include/config/netpoll/trap.h) \
-    $(wildcard include/config/net/flow/limit.h) \
-    $(wildcard include/config/bug.h) \
-    $(wildcard include/config/proc/fs.h) \
-    $(wildcard include/config/dynamic/debug.h) \
-  include/linux/pm_qos.h \
-    $(wildcard include/config/pm.h) \
-    $(wildcard include/config/pm/runtime.h) \
-  include/linux/plist.h \
-    $(wildcard include/config/debug/pi/list.h) \
-  include/linux/kernel.h \
-    $(wildcard include/config/lbdaf.h) \
-    $(wildcard include/config/preempt/voluntary.h) \
-    $(wildcard include/config/debug/atomic/sleep.h) \
-    $(wildcard include/config/mmu.h) \
-    $(wildcard include/config/prove/locking.h) \
-    $(wildcard include/config/ring/buffer.h) \
-    $(wildcard include/config/tracing.h) \
-    $(wildcard include/config/ftrace/mcount/record.h) \
-  /usr/lib/gcc/i686-linux-gnu/4.8/include/stdarg.h \
-  include/linux/linkage.h \
-  include/linux/compiler.h \
-    $(wildcard include/config/sparse/rcu/pointer.h) \
-    $(wildcard include/config/trace/branch/profiling.h) \
-    $(wildcard include/config/profile/all/branches.h) \
-    $(wildcard include/config/enable/must/check.h) \
-    $(wildcard include/config/enable/warn/deprecated.h) \
-    $(wildcard include/config/kprobes.h) \
-  include/linux/compiler-gcc.h \
-    $(wildcard include/config/arch/supports/optimized/inlining.h) \
-    $(wildcard include/config/optimize/inlining.h) \
-  include/linux/compiler-gcc4.h \
-    $(wildcard include/config/arch/use/builtin/bswap.h) \
-  include/linux/stringify.h \
-  include/linux/export.h \
-    $(wildcard include/config/have/underscore/symbol/prefix.h) \
     $(wildcard include/config/modules.h) \
-    $(wildcard include/config/modversions.h) \
     $(wildcard include/config/unused/symbols.h) \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/linkage.h \
-    $(wildcard include/config/x86/32.h) \
-    $(wildcard include/config/x86/64.h) \
-    $(wildcard include/config/x86/alignment/16.h) \
-  include/linux/stddef.h \
-  include/uapi/linux/stddef.h \
+    $(wildcard include/config/module/sig.h) \
+    $(wildcard include/config/generic/bug.h) \
+    $(wildcard include/config/kallsyms.h) \
+    $(wildcard include/config/smp.h) \
+    $(wildcard include/config/tracepoints.h) \
+    $(wildcard include/config/tracing.h) \
+    $(wildcard include/config/event/tracing.h) \
+    $(wildcard include/config/ftrace/mcount/record.h) \
+    $(wildcard include/config/module/unload.h) \
+    $(wildcard include/config/constructors.h) \
+    $(wildcard include/config/debug/set/module/ronx.h) \
+  include/linux/list.h \
+    $(wildcard include/config/debug/list.h) \
   include/linux/types.h \
     $(wildcard include/config/uid16.h) \
+    $(wildcard include/config/lbdaf.h) \
     $(wildcard include/config/arch/dma/addr/t/64bit.h) \
     $(wildcard include/config/phys/addr/t/64bit.h) \
     $(wildcard include/config/64bit.h) \
@@ -91,9 +35,49 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
   include/asm-generic/bitsperlong.h \
   include/uapi/asm-generic/bitsperlong.h \
   /usr/src/linux-3.13.2/include/uapi/linux/posix_types.h \
+  include/linux/stddef.h \
+  include/uapi/linux/stddef.h \
+  include/linux/compiler.h \
+    $(wildcard include/config/sparse/rcu/pointer.h) \
+    $(wildcard include/config/trace/branch/profiling.h) \
+    $(wildcard include/config/profile/all/branches.h) \
+    $(wildcard include/config/enable/must/check.h) \
+    $(wildcard include/config/enable/warn/deprecated.h) \
+    $(wildcard include/config/kprobes.h) \
+  include/linux/compiler-gcc.h \
+    $(wildcard include/config/arch/supports/optimized/inlining.h) \
+    $(wildcard include/config/optimize/inlining.h) \
+  include/linux/compiler-gcc4.h \
+    $(wildcard include/config/arch/use/builtin/bswap.h) \
   /usr/src/linux-3.13.2/arch/x86/include/asm/posix_types.h \
+    $(wildcard include/config/x86/32.h) \
   /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/posix_types_32.h \
   /usr/src/linux-3.13.2/include/uapi/asm-generic/posix_types.h \
+  include/linux/poison.h \
+    $(wildcard include/config/illegal/pointer/value.h) \
+  /usr/src/linux-3.13.2/include/uapi/linux/const.h \
+  include/linux/stat.h \
+  /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/stat.h \
+  include/uapi/linux/stat.h \
+  include/linux/time.h \
+    $(wildcard include/config/arch/uses/gettimeoffset.h) \
+  include/linux/cache.h \
+    $(wildcard include/config/arch/has/cache/line/size.h) \
+  include/linux/kernel.h \
+    $(wildcard include/config/preempt/voluntary.h) \
+    $(wildcard include/config/debug/atomic/sleep.h) \
+    $(wildcard include/config/mmu.h) \
+    $(wildcard include/config/prove/locking.h) \
+    $(wildcard include/config/ring/buffer.h) \
+  /usr/lib/gcc/i686-linux-gnu/4.8/include/stdarg.h \
+  include/linux/linkage.h \
+  include/linux/stringify.h \
+  include/linux/export.h \
+    $(wildcard include/config/have/underscore/symbol/prefix.h) \
+    $(wildcard include/config/modversions.h) \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/linkage.h \
+    $(wildcard include/config/x86/64.h) \
+    $(wildcard include/config/x86/alignment/16.h) \
   include/linux/bitops.h \
   /usr/src/linux-3.13.2/arch/x86/include/asm/bitops.h \
     $(wildcard include/config/x86/cmov.h) \
@@ -105,7 +89,6 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
   /usr/src/linux-3.13.2/arch/x86/include/asm/segment.h \
     $(wildcard include/config/cc/stackprotector.h) \
     $(wildcard include/config/x86/32/lazy/gs.h) \
-  /usr/src/linux-3.13.2/include/uapi/linux/const.h \
   /usr/src/linux-3.13.2/arch/x86/include/asm/page_types.h \
     $(wildcard include/config/physical/start.h) \
     $(wildcard include/config/physical/align.h) \
@@ -132,6 +115,7 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
     $(wildcard include/config/kmemcheck.h) \
     $(wildcard include/config/mem/soft/dirty.h) \
     $(wildcard include/config/compat/vdso.h) \
+    $(wildcard include/config/proc/fs.h) \
   /usr/src/linux-3.13.2/arch/x86/include/asm/pgtable_32_types.h \
     $(wildcard include/config/highmem.h) \
   /usr/src/linux-3.13.2/arch/x86/include/asm/pgtable-3level_types.h \
@@ -173,57 +157,48 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
   include/linux/printk.h \
     $(wildcard include/config/early/printk.h) \
     $(wildcard include/config/printk.h) \
+    $(wildcard include/config/dynamic/debug.h) \
   include/linux/kern_levels.h \
   include/linux/dynamic_debug.h \
   include/uapi/linux/kernel.h \
   /usr/src/linux-3.13.2/include/uapi/linux/sysinfo.h \
   /usr/src/linux-3.13.2/arch/x86/include/asm/div64.h \
-  include/linux/list.h \
-    $(wildcard include/config/debug/list.h) \
-  include/linux/poison.h \
-    $(wildcard include/config/illegal/pointer/value.h) \
-  include/linux/notifier.h \
-  include/linux/errno.h \
-  include/uapi/linux/errno.h \
-  /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/errno.h \
-  /usr/src/linux-3.13.2/include/uapi/asm-generic/errno.h \
-  /usr/src/linux-3.13.2/include/uapi/asm-generic/errno-base.h \
-  include/linux/mutex.h \
-    $(wildcard include/config/debug/mutexes.h) \
-    $(wildcard include/config/mutex/spin/on/owner.h) \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/cache.h \
+    $(wildcard include/config/x86/l1/cache/shift.h) \
+    $(wildcard include/config/x86/internode/cache/shift.h) \
+    $(wildcard include/config/x86/vsmp.h) \
+  include/linux/seqlock.h \
     $(wildcard include/config/debug/lock/alloc.h) \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/current.h \
+  include/linux/spinlock.h \
+    $(wildcard include/config/debug/spinlock.h) \
+    $(wildcard include/config/generic/lockbreak.h) \
+    $(wildcard include/config/preempt.h) \
+  include/linux/preempt.h \
+    $(wildcard include/config/debug/preempt.h) \
+    $(wildcard include/config/preempt/tracer.h) \
+    $(wildcard include/config/preempt/count.h) \
+    $(wildcard include/config/context/tracking.h) \
+    $(wildcard include/config/preempt/notifiers.h) \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/preempt.h \
   /usr/src/linux-3.13.2/arch/x86/include/asm/percpu.h \
     $(wildcard include/config/x86/64/smp.h) \
   include/asm-generic/percpu.h \
-    $(wildcard include/config/debug/preempt.h) \
     $(wildcard include/config/have/setup/per/cpu/area.h) \
   include/linux/threads.h \
     $(wildcard include/config/base/small.h) \
   include/linux/percpu-defs.h \
     $(wildcard include/config/debug/force/weak/per/cpu.h) \
-  include/linux/spinlock_types.h \
-    $(wildcard include/config/generic/lockbreak.h) \
-    $(wildcard include/config/debug/spinlock.h) \
-  include/linux/lockdep.h \
-    $(wildcard include/config/lockdep.h) \
-    $(wildcard include/config/lock/stat.h) \
-    $(wildcard include/config/trace/irqflags.h) \
-    $(wildcard include/config/prove/rcu.h) \
-  include/linux/rwlock_types.h \
-  include/linux/atomic.h \
-    $(wildcard include/config/arch/has/atomic/or.h) \
-    $(wildcard include/config/generic/atomic64.h) \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/atomic.h \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/processor.h \
-    $(wildcard include/config/x86/vsmp.h) \
-    $(wildcard include/config/m486.h) \
-    $(wildcard include/config/xen.h) \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/vm86.h \
-  /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/vm86.h \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/math_emu.h \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/sigcontext.h \
-  /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/sigcontext.h \
+  include/linux/thread_info.h \
+    $(wildcard include/config/compat.h) \
+    $(wildcard include/config/debug/stack/usage.h) \
+  include/linux/bug.h \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/bug.h \
+    $(wildcard include/config/bug.h) \
+    $(wildcard include/config/debug/bugverbose.h) \
+  include/asm-generic/bug.h \
+    $(wildcard include/config/generic/bug/relative/pointers.h) \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/thread_info.h \
+    $(wildcard include/config/ia32/emulation.h) \
   /usr/src/linux-3.13.2/arch/x86/include/asm/page.h \
   /usr/src/linux-3.13.2/arch/x86/include/asm/page_32.h \
     $(wildcard include/config/hugetlb/page.h) \
@@ -241,6 +216,15 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
     $(wildcard include/config/sparsemem/vmemmap.h) \
     $(wildcard include/config/sparsemem.h) \
   include/asm-generic/getorder.h \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/processor.h \
+    $(wildcard include/config/m486.h) \
+    $(wildcard include/config/xen.h) \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/vm86.h \
+  /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/vm86.h \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/math_emu.h \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/sigcontext.h \
+  /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/sigcontext.h \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/current.h \
   /usr/src/linux-3.13.2/arch/x86/include/asm/msr.h \
   /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/msr.h \
   /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/msr-index.h \
@@ -248,6 +232,9 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
   /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/ioctl.h \
   include/asm-generic/ioctl.h \
   include/uapi/asm-generic/ioctl.h \
+  /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/errno.h \
+  /usr/src/linux-3.13.2/include/uapi/asm-generic/errno.h \
+  /usr/src/linux-3.13.2/include/uapi/asm-generic/errno-base.h \
   /usr/src/linux-3.13.2/arch/x86/include/asm/cpumask.h \
   include/linux/cpumask.h \
     $(wildcard include/config/cpumask/offstack.h) \
@@ -255,53 +242,38 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
     $(wildcard include/config/debug/per/cpu/maps.h) \
     $(wildcard include/config/disable/obsolete/cpumask/functions.h) \
   include/linux/bitmap.h \
-  include/linux/bug.h \
-    $(wildcard include/config/generic/bug.h) \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/bug.h \
-    $(wildcard include/config/debug/bugverbose.h) \
-  include/asm-generic/bug.h \
-    $(wildcard include/config/generic/bug/relative/pointers.h) \
   /usr/src/linux-3.13.2/arch/x86/include/asm/paravirt.h \
   /usr/src/linux-3.13.2/arch/x86/include/asm/nops.h \
     $(wildcard include/config/mk7.h) \
   /usr/src/linux-3.13.2/arch/x86/include/asm/special_insns.h \
   include/linux/personality.h \
   include/uapi/linux/personality.h \
-  include/linux/cache.h \
-    $(wildcard include/config/arch/has/cache/line/size.h) \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/cache.h \
-    $(wildcard include/config/x86/l1/cache/shift.h) \
-    $(wildcard include/config/x86/internode/cache/shift.h) \
   include/linux/math64.h \
     $(wildcard include/config/arch/supports/int128.h) \
   include/linux/err.h \
   include/linux/irqflags.h \
+    $(wildcard include/config/trace/irqflags.h) \
     $(wildcard include/config/irqsoff/tracer.h) \
-    $(wildcard include/config/preempt/tracer.h) \
     $(wildcard include/config/trace/irqflags/support.h) \
   /usr/src/linux-3.13.2/arch/x86/include/asm/irqflags.h \
+  include/linux/atomic.h \
+    $(wildcard include/config/arch/has/atomic/or.h) \
+    $(wildcard include/config/generic/atomic64.h) \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/atomic.h \
   /usr/src/linux-3.13.2/arch/x86/include/asm/cmpxchg.h \
   /usr/src/linux-3.13.2/arch/x86/include/asm/cmpxchg_32.h \
   /usr/src/linux-3.13.2/arch/x86/include/asm/atomic64_32.h \
   include/asm-generic/atomic-long.h \
-  include/linux/rwsem.h \
-    $(wildcard include/config/rwsem/generic/spinlock.h) \
-  include/linux/spinlock.h \
-    $(wildcard include/config/preempt.h) \
-  include/linux/preempt.h \
-    $(wildcard include/config/preempt/count.h) \
-    $(wildcard include/config/context/tracking.h) \
-    $(wildcard include/config/preempt/notifiers.h) \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/preempt.h \
-  include/linux/thread_info.h \
-    $(wildcard include/config/compat.h) \
-    $(wildcard include/config/debug/stack/usage.h) \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/thread_info.h \
-    $(wildcard include/config/ia32/emulation.h) \
   include/linux/bottom_half.h \
   /usr/src/linux-3.13.2/arch/x86/include/asm/barrier.h \
     $(wildcard include/config/x86/ppro/fence.h) \
     $(wildcard include/config/x86/oostore.h) \
+  include/linux/spinlock_types.h \
+  include/linux/lockdep.h \
+    $(wildcard include/config/lockdep.h) \
+    $(wildcard include/config/lock/stat.h) \
+    $(wildcard include/config/prove/rcu.h) \
+  include/linux/rwlock_types.h \
   /usr/src/linux-3.13.2/arch/x86/include/asm/spinlock.h \
   include/linux/jump_label.h \
     $(wildcard include/config/jump/label.h) \
@@ -337,90 +309,17 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
     $(wildcard include/config/inline/write/unlock/irq.h) \
     $(wildcard include/config/inline/read/unlock/irqrestore.h) \
     $(wildcard include/config/inline/write/unlock/irqrestore.h) \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/rwsem.h \
-  include/linux/srcu.h \
-  include/linux/rcupdate.h \
-    $(wildcard include/config/rcu/torture/test.h) \
-    $(wildcard include/config/tree/rcu.h) \
-    $(wildcard include/config/tree/preempt/rcu.h) \
-    $(wildcard include/config/rcu/trace.h) \
-    $(wildcard include/config/preempt/rcu.h) \
-    $(wildcard include/config/rcu/user/qs.h) \
-    $(wildcard include/config/tiny/rcu.h) \
-    $(wildcard include/config/debug/objects/rcu/head.h) \
-    $(wildcard include/config/rcu/nocb/cpu.h) \
-    $(wildcard include/config/no/hz/full/sysidle.h) \
-  include/linux/seqlock.h \
-  include/linux/completion.h \
-  include/linux/wait.h \
-  include/uapi/linux/wait.h \
-  include/linux/debugobjects.h \
-    $(wildcard include/config/debug/objects.h) \
-    $(wildcard include/config/debug/objects/free.h) \
-  include/linux/rcutree.h \
-  include/linux/workqueue.h \
-    $(wildcard include/config/debug/objects/work.h) \
-    $(wildcard include/config/freezer.h) \
-  include/linux/timer.h \
-    $(wildcard include/config/timer/stats.h) \
-    $(wildcard include/config/debug/objects/timers.h) \
-  include/linux/ktime.h \
-    $(wildcard include/config/ktime/scalar.h) \
-  include/linux/time.h \
-    $(wildcard include/config/arch/uses/gettimeoffset.h) \
   include/uapi/linux/time.h \
-  include/linux/jiffies.h \
-  include/linux/timex.h \
-  include/uapi/linux/timex.h \
-  /usr/src/linux-3.13.2/include/uapi/linux/param.h \
-  /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/param.h \
-  include/asm-generic/param.h \
-    $(wildcard include/config/hz.h) \
-  include/uapi/asm-generic/param.h \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/timex.h \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/tsc.h \
-    $(wildcard include/config/x86/tsc.h) \
-  include/linux/miscdevice.h \
-  /usr/src/linux-3.13.2/include/uapi/linux/major.h \
-  include/linux/device.h \
-    $(wildcard include/config/debug/devres.h) \
-    $(wildcard include/config/acpi.h) \
-    $(wildcard include/config/pinctrl.h) \
-    $(wildcard include/config/dma/cma.h) \
-    $(wildcard include/config/pm/sleep.h) \
-    $(wildcard include/config/devtmpfs.h) \
-    $(wildcard include/config/sysfs/deprecated.h) \
-  include/linux/ioport.h \
-    $(wildcard include/config/memory/hotremove.h) \
-  include/linux/kobject.h \
-    $(wildcard include/config/debug/kobject/release.h) \
-  include/linux/sysfs.h \
-  include/linux/kobject_ns.h \
-  include/linux/stat.h \
-  /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/stat.h \
-  include/uapi/linux/stat.h \
   include/linux/uidgid.h \
     $(wildcard include/config/uidgid/strict/type/checks.h) \
     $(wildcard include/config/user/ns.h) \
   include/linux/highuid.h \
-  include/linux/kref.h \
-  include/linux/klist.h \
-  include/linux/pinctrl/devinfo.h \
-  include/linux/pinctrl/consumer.h \
-  include/linux/seq_file.h \
-  include/linux/nodemask.h \
-    $(wildcard include/config/movable/node.h) \
-  include/linux/numa.h \
-    $(wildcard include/config/nodes/shift.h) \
-  include/linux/pinctrl/pinctrl-state.h \
-  include/linux/pm.h \
-    $(wildcard include/config/vt/console/sleep.h) \
-    $(wildcard include/config/pm/clk.h) \
-    $(wildcard include/config/pm/generic/domains.h) \
-  include/linux/ratelimit.h \
+  include/linux/kmod.h \
   include/linux/gfp.h \
+    $(wildcard include/config/numa.h) \
     $(wildcard include/config/zone/dma.h) \
     $(wildcard include/config/zone/dma32.h) \
+    $(wildcard include/config/pm/sleep.h) \
     $(wildcard include/config/cma.h) \
   include/linux/mmzone.h \
     $(wildcard include/config/force/max/zoneorder.h) \
@@ -442,14 +341,66 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
     $(wildcard include/config/nodes/span/other/nodes.h) \
     $(wildcard include/config/holes/in/zone.h) \
     $(wildcard include/config/arch/has/holes/memorymodel.h) \
+  include/linux/wait.h \
+  include/uapi/linux/wait.h \
+  include/linux/numa.h \
+    $(wildcard include/config/nodes/shift.h) \
+  include/linux/nodemask.h \
+    $(wildcard include/config/movable/node.h) \
   include/linux/pageblock-flags.h \
     $(wildcard include/config/hugetlb/page/size/variable.h) \
   include/linux/page-flags-layout.h \
   include/generated/bounds.h \
   /usr/src/linux-3.13.2/arch/x86/include/asm/sparsemem.h \
   include/linux/memory_hotplug.h \
+    $(wildcard include/config/memory/hotremove.h) \
     $(wildcard include/config/have/arch/nodedata/extension.h) \
     $(wildcard include/config/have/bootmem/info/node.h) \
+  include/linux/notifier.h \
+  include/linux/errno.h \
+  include/uapi/linux/errno.h \
+  include/linux/mutex.h \
+    $(wildcard include/config/debug/mutexes.h) \
+    $(wildcard include/config/mutex/spin/on/owner.h) \
+  include/linux/rwsem.h \
+    $(wildcard include/config/rwsem/generic/spinlock.h) \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/rwsem.h \
+  include/linux/srcu.h \
+  include/linux/rcupdate.h \
+    $(wildcard include/config/rcu/torture/test.h) \
+    $(wildcard include/config/tree/rcu.h) \
+    $(wildcard include/config/tree/preempt/rcu.h) \
+    $(wildcard include/config/rcu/trace.h) \
+    $(wildcard include/config/preempt/rcu.h) \
+    $(wildcard include/config/rcu/user/qs.h) \
+    $(wildcard include/config/tiny/rcu.h) \
+    $(wildcard include/config/debug/objects/rcu/head.h) \
+    $(wildcard include/config/rcu/nocb/cpu.h) \
+    $(wildcard include/config/no/hz/full/sysidle.h) \
+  include/linux/completion.h \
+  include/linux/debugobjects.h \
+    $(wildcard include/config/debug/objects.h) \
+    $(wildcard include/config/debug/objects/free.h) \
+  include/linux/rcutree.h \
+  include/linux/workqueue.h \
+    $(wildcard include/config/debug/objects/work.h) \
+    $(wildcard include/config/freezer.h) \
+  include/linux/timer.h \
+    $(wildcard include/config/timer/stats.h) \
+    $(wildcard include/config/debug/objects/timers.h) \
+  include/linux/ktime.h \
+    $(wildcard include/config/ktime/scalar.h) \
+  include/linux/jiffies.h \
+  include/linux/timex.h \
+  include/uapi/linux/timex.h \
+  /usr/src/linux-3.13.2/include/uapi/linux/param.h \
+  /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/param.h \
+  include/asm-generic/param.h \
+    $(wildcard include/config/hz.h) \
+  include/uapi/asm-generic/param.h \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/timex.h \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/tsc.h \
+    $(wildcard include/config/x86/tsc.h) \
   include/linux/topology.h \
     $(wildcard include/config/sched/smt.h) \
     $(wildcard include/config/sched/mc.h) \
@@ -464,6 +415,7 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
     $(wildcard include/config/x86/numaq.h) \
     $(wildcard include/config/eisa.h) \
     $(wildcard include/config/x86/mpparse.h) \
+    $(wildcard include/config/acpi.h) \
   /usr/src/linux-3.13.2/arch/x86/include/asm/mpspec_def.h \
   /usr/src/linux-3.13.2/arch/x86/include/asm/x86_init.h \
   /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/bootparam.h \
@@ -479,6 +431,7 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
     $(wildcard include/config/memtest.h) \
   /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/e820.h \
     $(wildcard include/config/intel/txt.h) \
+  include/linux/ioport.h \
   /usr/src/linux-3.13.2/arch/x86/include/asm/ist.h \
   /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/ist.h \
   include/video/edid.h \
@@ -487,6 +440,12 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
   /usr/src/linux-3.13.2/arch/x86/include/asm/apicdef.h \
   /usr/src/linux-3.13.2/arch/x86/include/asm/apic.h \
     $(wildcard include/config/x86/x2apic.h) \
+  include/linux/pm.h \
+    $(wildcard include/config/vt/console/sleep.h) \
+    $(wildcard include/config/pm.h) \
+    $(wildcard include/config/pm/runtime.h) \
+    $(wildcard include/config/pm/clk.h) \
+    $(wildcard include/config/pm/generic/domains.h) \
   /usr/src/linux-3.13.2/arch/x86/include/asm/fixmap.h \
     $(wildcard include/config/paravirt/clock.h) \
     $(wildcard include/config/provide/ohci1394/dma/init.h) \
@@ -538,6 +497,100 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
   include/linux/pfn.h \
   include/linux/mmdebug.h \
     $(wildcard include/config/debug/vm.h) \
+  include/linux/sysctl.h \
+    $(wildcard include/config/sysctl.h) \
+  include/uapi/linux/sysctl.h \
+  include/linux/elf.h \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/elf.h \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/user.h \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/user_32.h \
+  /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/auxvec.h \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/vdso.h \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/desc.h \
+  /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/ldt.h \
+  include/uapi/linux/elf.h \
+  /usr/src/linux-3.13.2/include/uapi/linux/elf-em.h \
+  include/linux/kobject.h \
+    $(wildcard include/config/debug/kobject/release.h) \
+  include/linux/sysfs.h \
+  include/linux/kobject_ns.h \
+  include/linux/kref.h \
+  include/linux/moduleparam.h \
+    $(wildcard include/config/alpha.h) \
+    $(wildcard include/config/ia64.h) \
+    $(wildcard include/config/ppc64.h) \
+  include/linux/tracepoint.h \
+  include/linux/static_key.h \
+  /usr/src/linux-3.13.2/arch/x86/include/asm/module.h \
+    $(wildcard include/config/m586.h) \
+    $(wildcard include/config/m586tsc.h) \
+    $(wildcard include/config/m586mmx.h) \
+    $(wildcard include/config/mcore2.h) \
+    $(wildcard include/config/m686.h) \
+    $(wildcard include/config/mpentiumii.h) \
+    $(wildcard include/config/mpentiumiii.h) \
+    $(wildcard include/config/mpentiumm.h) \
+    $(wildcard include/config/mpentium4.h) \
+    $(wildcard include/config/mk6.h) \
+    $(wildcard include/config/mk8.h) \
+    $(wildcard include/config/melan.h) \
+    $(wildcard include/config/mcrusoe.h) \
+    $(wildcard include/config/mefficeon.h) \
+    $(wildcard include/config/mwinchipc6.h) \
+    $(wildcard include/config/mwinchip3d.h) \
+    $(wildcard include/config/mcyrixiii.h) \
+    $(wildcard include/config/mviac3/2.h) \
+    $(wildcard include/config/mviac7.h) \
+    $(wildcard include/config/mgeodegx1.h) \
+    $(wildcard include/config/mgeode/lx.h) \
+  include/asm-generic/module.h \
+    $(wildcard include/config/have/mod/arch/specific.h) \
+    $(wildcard include/config/modules/use/elf/rel.h) \
+    $(wildcard include/config/modules/use/elf/rela.h) \
+  include/linux/netdevice.h \
+    $(wildcard include/config/dcb.h) \
+    $(wildcard include/config/wlan.h) \
+    $(wildcard include/config/ax25.h) \
+    $(wildcard include/config/mac80211/mesh.h) \
+    $(wildcard include/config/net/ipip.h) \
+    $(wildcard include/config/net/ipgre.h) \
+    $(wildcard include/config/ipv6/sit.h) \
+    $(wildcard include/config/ipv6/tunnel.h) \
+    $(wildcard include/config/rps.h) \
+    $(wildcard include/config/netpoll.h) \
+    $(wildcard include/config/xps.h) \
+    $(wildcard include/config/bql.h) \
+    $(wildcard include/config/rfs/accel.h) \
+    $(wildcard include/config/fcoe.h) \
+    $(wildcard include/config/net/poll/controller.h) \
+    $(wildcard include/config/net/rx/busy/poll.h) \
+    $(wildcard include/config/libfcoe.h) \
+    $(wildcard include/config/wireless/ext.h) \
+    $(wildcard include/config/vlan/8021q.h) \
+    $(wildcard include/config/net/dsa.h) \
+    $(wildcard include/config/net/ns.h) \
+    $(wildcard include/config/netprio/cgroup.h) \
+    $(wildcard include/config/net/dsa/tag/dsa.h) \
+    $(wildcard include/config/net/dsa/tag/trailer.h) \
+    $(wildcard include/config/netpoll/trap.h) \
+    $(wildcard include/config/net/flow/limit.h) \
+  include/linux/pm_qos.h \
+  include/linux/plist.h \
+    $(wildcard include/config/debug/pi/list.h) \
+  include/linux/miscdevice.h \
+  /usr/src/linux-3.13.2/include/uapi/linux/major.h \
+  include/linux/device.h \
+    $(wildcard include/config/debug/devres.h) \
+    $(wildcard include/config/pinctrl.h) \
+    $(wildcard include/config/dma/cma.h) \
+    $(wildcard include/config/devtmpfs.h) \
+    $(wildcard include/config/sysfs/deprecated.h) \
+  include/linux/klist.h \
+  include/linux/pinctrl/devinfo.h \
+  include/linux/pinctrl/consumer.h \
+  include/linux/seq_file.h \
+  include/linux/pinctrl/pinctrl-state.h \
+  include/linux/ratelimit.h \
   /usr/src/linux-3.13.2/arch/x86/include/asm/device.h \
     $(wildcard include/config/x86/dev/dma/ops.h) \
     $(wildcard include/config/intel/iommu.h) \
@@ -558,11 +611,9 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
   include/linux/scatterlist.h \
     $(wildcard include/config/debug/sg.h) \
   include/linux/mm.h \
-    $(wildcard include/config/sysctl.h) \
     $(wildcard include/config/ppc.h) \
     $(wildcard include/config/parisc.h) \
     $(wildcard include/config/metag.h) \
-    $(wildcard include/config/ia64.h) \
     $(wildcard include/config/stack/growsup.h) \
     $(wildcard include/config/transparent/hugepage.h) \
     $(wildcard include/config/ksm.h) \
@@ -583,7 +634,6 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
     $(wildcard include/config/mmu/notifier.h) \
   include/linux/auxvec.h \
   include/uapi/linux/auxvec.h \
-  /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/auxvec.h \
   include/linux/page-debug-flags.h \
     $(wildcard include/config/page/poisoning.h) \
     $(wildcard include/config/page/guard.h) \
@@ -711,8 +761,6 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
     $(wildcard include/config/nf/defrag/ipv6.h) \
     $(wildcard include/config/wext/core.h) \
     $(wildcard include/config/ip/vs.h) \
-  include/linux/sysctl.h \
-  include/uapi/linux/sysctl.h \
   include/net/netns/core.h \
   include/net/netns/mib.h \
     $(wildcard include/config/xfrm/statistics.h) \
@@ -789,7 +837,6 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
   include/linux/in.h \
   include/uapi/linux/in.h \
   include/uapi/linux/netfilter.h \
-  include/linux/static_key.h \
   include/net/flow.h \
   include/net/netns/x_tables.h \
     $(wildcard include/config/bridge/nf/ebtables.h) \
@@ -953,11 +1000,10 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
   /usr/src/linux-3.13.2/include/uapi/linux/if_packet.h \
   include/linux/if_link.h \
   include/uapi/linux/if_link.h \
-  include/linux/interrupt.h \
-    $(wildcard include/config/irq/forced/threading.h) \
-    $(wildcard include/config/generic/irq/probe.h) \
-  include/linux/inet.h \
-  include/linux/udp.h \
+  include/net/ip.h \
+    $(wildcard include/config/inet.h) \
+  include/linux/ip.h \
+  include/uapi/linux/ip.h \
   include/net/inet_sock.h \
   include/linux/jhash.h \
   include/linux/unaligned/packed_struct.h \
@@ -966,7 +1012,6 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
   include/linux/uaccess.h \
   include/linux/memcontrol.h \
     $(wildcard include/config/memcg/swap.h) \
-    $(wildcard include/config/inet.h) \
   include/linux/res_counter.h \
   include/linux/aio.h \
   /usr/src/linux-3.13.2/include/uapi/linux/aio_abi.h \
@@ -987,136 +1032,48 @@ deps_/home/lion/SelectInitialLeader/NetfilterHook.o := \
   include/net/netlink.h \
   include/net/request_sock.h \
   include/net/netns/hash.h \
+  include/net/route.h \
+  include/net/inetpeer.h \
+  include/net/ipv6.h \
+    $(wildcard include/config/have/efficient/unaligned/access.h) \
+  include/linux/ipv6.h \
+    $(wildcard include/config/ipv6/router/pref.h) \
+    $(wildcard include/config/ipv6/route/info.h) \
+    $(wildcard include/config/ipv6/optimistic/dad.h) \
+    $(wildcard include/config/ipv6/mip6.h) \
+    $(wildcard include/config/ipv6/subtrees.h) \
+  include/uapi/linux/ipv6.h \
+  include/linux/icmpv6.h \
+  include/uapi/linux/icmpv6.h \
+  include/linux/tcp.h \
+    $(wildcard include/config/tcp/md5sig.h) \
+  include/net/inet_connection_sock.h \
+  include/net/inet_timewait_sock.h \
+  include/net/tcp_states.h \
+  include/net/timewait_sock.h \
+  include/uapi/linux/tcp.h \
+  include/linux/udp.h \
   include/uapi/linux/udp.h \
-  include/linux/ip.h \
-  include/uapi/linux/ip.h \
-  include/linux/module.h \
-    $(wildcard include/config/module/sig.h) \
-    $(wildcard include/config/kallsyms.h) \
-    $(wildcard include/config/tracepoints.h) \
-    $(wildcard include/config/event/tracing.h) \
-    $(wildcard include/config/module/unload.h) \
-    $(wildcard include/config/constructors.h) \
-    $(wildcard include/config/debug/set/module/ronx.h) \
-  include/linux/kmod.h \
-  include/linux/elf.h \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/elf.h \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/user.h \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/user_32.h \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/vdso.h \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/desc.h \
-  /usr/src/linux-3.13.2/arch/x86/include/uapi/asm/ldt.h \
-  include/uapi/linux/elf.h \
-  /usr/src/linux-3.13.2/include/uapi/linux/elf-em.h \
-  include/linux/moduleparam.h \
-    $(wildcard include/config/alpha.h) \
-    $(wildcard include/config/ppc64.h) \
-  include/linux/tracepoint.h \
-  /usr/src/linux-3.13.2/arch/x86/include/asm/module.h \
-    $(wildcard include/config/m586.h) \
-    $(wildcard include/config/m586tsc.h) \
-    $(wildcard include/config/m586mmx.h) \
-    $(wildcard include/config/mcore2.h) \
-    $(wildcard include/config/m686.h) \
-    $(wildcard include/config/mpentiumii.h) \
-    $(wildcard include/config/mpentiumiii.h) \
-    $(wildcard include/config/mpentiumm.h) \
-    $(wildcard include/config/mpentium4.h) \
-    $(wildcard include/config/mk6.h) \
-    $(wildcard include/config/mk8.h) \
-    $(wildcard include/config/melan.h) \
-    $(wildcard include/config/mcrusoe.h) \
-    $(wildcard include/config/mefficeon.h) \
-    $(wildcard include/config/mwinchipc6.h) \
-    $(wildcard include/config/mwinchip3d.h) \
-    $(wildcard include/config/mcyrixiii.h) \
-    $(wildcard include/config/mviac3/2.h) \
-    $(wildcard include/config/mviac7.h) \
-    $(wildcard include/config/mgeodegx1.h) \
-    $(wildcard include/config/mgeode/lx.h) \
-  include/asm-generic/module.h \
-    $(wildcard include/config/have/mod/arch/specific.h) \
-    $(wildcard include/config/modules/use/elf/rel.h) \
-    $(wildcard include/config/modules/use/elf/rela.h) \
+  include/net/if_inet6.h \
+  include/net/ndisc.h \
+  include/linux/if_arp.h \
+    $(wildcard include/config/firewire/net.h) \
+  include/uapi/linux/if_arp.h \
+  include/linux/hash.h \
+  /usr/src/linux-3.13.2/include/uapi/linux/in_route.h \
+  /usr/src/linux-3.13.2/include/uapi/linux/route.h \
+  include/net/udp.h \
+  include/linux/inet.h \
   include/linux/netfilter_ipv4.h \
   include/uapi/linux/netfilter_ipv4.h \
+  include/linux/netpoll.h \
+  include/linux/interrupt.h \
+    $(wildcard include/config/irq/forced/threading.h) \
+    $(wildcard include/config/generic/irq/probe.h) \
   /usr/src/linux-3.13.2/arch/x86/include/asm/unaligned.h \
   include/linux/unaligned/access_ok.h \
   include/linux/unaligned/generic.h \
-  include/linux/igmp.h \
-  include/uapi/linux/igmp.h \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/ath9k.h \
-    $(wildcard include/config/ath9k/btcoex/support.h) \
-    $(wildcard include/config/mac80211/leds.h) \
-    $(wildcard include/config/ath9k/debugfs.h) \
-    $(wildcard include/config/ath9k/pci.h) \
-    $(wildcard include/config/ath9k/ahb.h) \
-  include/linux/etherdevice.h \
-    $(wildcard include/config/have/efficient/unaligned/access.h) \
-  include/linux/leds.h \
-    $(wildcard include/config/leds/triggers.h) \
-    $(wildcard include/config/leds/trigger/ide/disk.h) \
-    $(wildcard include/config/leds/trigger/camera.h) \
-    $(wildcard include/config/leds/trigger/cpu.h) \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/debug.h \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/hw.h \
-    $(wildcard include/config/status.h) \
-  include/linux/io.h \
-  include/linux/firmware.h \
-    $(wildcard include/config/fw/loader.h) \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/mac.h \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/ani.h \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/eeprom.h \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/../ath.h \
-    $(wildcard include/config/ath/debug.h) \
-  include/net/mac80211.h \
-    $(wildcard include/config/mac80211/debugfs.h) \
-    $(wildcard include/config/nl80211/testmode.h) \
-  include/linux/ieee80211.h \
-    $(wildcard include/config/timeout.h) \
-  include/net/cfg80211.h \
-    $(wildcard include/config/cfg80211/wext.h) \
-  include/linux/debugfs.h \
-    $(wildcard include/config/debug/fs.h) \
-  /usr/src/linux-3.13.2/include/uapi/linux/nl80211.h \
-  include/net/regulatory.h \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/ar9003_eeprom.h \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/calib.h \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/reg.h \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/../reg.h \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/phy.h \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/btcoex.h \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/../regd.h \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/../ath.h \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/rc.h \
-    $(wildcard include/config/ath9k/legacy/rate/control.h) \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/dfs_debug.h \
-    $(wildcard include/config/ath9k/dfs/debugfs.h) \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/common.h \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/hw-ops.h \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/mci.h \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/ar9003_mci.h \
-    $(wildcard include/config/concur/tx.h) \
-    $(wildcard include/config/mci/obs/mci.h) \
-    $(wildcard include/config/mci/obs/txrx.h) \
-    $(wildcard include/config/mci/obs/bt.h) \
-    $(wildcard include/config/disable/mci/cal.h) \
-    $(wildcard include/config/disable/osla.h) \
-    $(wildcard include/config/disable/ftp/stomp.h) \
-    $(wildcard include/config/aggr/thresh.h) \
-    $(wildcard include/config/aggr/thresh/s.h) \
-    $(wildcard include/config/disable/aggr/thresh.h) \
-    $(wildcard include/config/clk/div.h) \
-    $(wildcard include/config/clk/div/s.h) \
-    $(wildcard include/config/disable/tuning.h) \
-    $(wildcard include/config/mci/weight/dbg.h) \
-    $(wildcard include/config/disable/mci.h) \
-    $(wildcard include/config/mci/obs/mask.h) \
-    $(wildcard include/config/mci/obs/gpio.h) \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/dfs.h \
-    $(wildcard include/config/ath9k/dfs/certified.h) \
-  /usr/src/linux-3.13.2/drivers/net/wireless/ath/ath9k/../dfs_pattern_detector.h \
 
-/home/lion/SelectInitialLeader/NetfilterHook.o: $(deps_/home/lion/SelectInitialLeader/NetfilterHook.o)
+/home/sven/Desktop/temp/ClientModuleFinal.o: $(deps_/home/sven/Desktop/temp/ClientModuleFinal.o)
 
-$(deps_/home/lion/SelectInitialLeader/NetfilterHook.o):
+$(deps_/home/sven/Desktop/temp/ClientModuleFinal.o):
