@@ -47,16 +47,17 @@ struct sk_buff *sock_buff;
 struct udphdr *udp_header;          //udp header struct (not used)
 struct iphdr *ip_header;            //ip header struct
 
-static int RandomMultiCastRatePool[12] = {0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
-
+static int RandomMultiCastRatePool[16] = {0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+static int RateIndicator[16] = {6.5, 13, 19.5, 26, 39, 52, 58.5, 65, 0, 0, 0, 0, 78, 104, 117, 130};
 #define FeedBackPacketInterval 100
 #define ProbingChance 70
-#define MaxMCSIndex 12
+#define MaxMCSIndex 15
 
 int MaxPacketPerInterval[2] = {0};
 int CurrentSendingRates[4] = {0};
 int StatusPacketsSentPerRate[4]= {0};
 bool HighRateOrLowRate = true;
+int packetIdentity = 0;
 
 unsigned int DestinationAddress;
 unsigned int PacketCountInModule = 0;
@@ -69,19 +70,21 @@ extern struct ath_softc *Pointer;
 static void SendMultiCastPacket(void)
 {
 	PacketCountInKernel = Pointer->PacketsSent; //probing interval (0 when we get the feedback packet)
-
 		if(PacketCountInKernel == 0)
 		{
 			ResetRateTableAndPacketCount();
 			PopulateRateTable();
 			PacketCountInModule = 0;
 			printk("%d, %d\n", MaxPacketPerInterval[0], MaxPacketPerInterval[1]);
-			printk("%d, %d, %d, %d \n", CurrentSendingRates[0], CurrentSendingRates[1], CurrentSendingRates[2], CurrentSendingRates[3]);
+			printk("Rate index: %d, %d, %d, %d \n", CurrentSendingRates[0], CurrentSendingRates[1], CurrentSendingRates[2], CurrentSendingRates[3]);
+			if (CurrentSendingRates[0] < 0 || CurrentSendingRates[0] > 15 || CurrentSendingRates[1] < 0 || CurrentSendingRates[1] > 15 || CurrentSendingRates[2] < 0 || CurrentSendingRates[2] > 15 || CurrentSendingRates[3] < 0 || CurrentSendingRates[3] > 15)
+				printk("ERRORRRR\n");
+			//printk("Rate Selected: %d, %d, %d, %d \n", RateIndicator[ CurrentSendingRates[0] ], RateIndicator[ CurrentSendingRates[1] ], RateIndicator[ CurrentSendingRates[2] ], RateIndicator[ CurrentSendingRates[3] ]);
 		}
 
 	CurrentPacketSendingRate = GetRateToSendPacket();
 	ModifyTTLfield();/**/
-	UpdateDebugFsSendingRateAndPacketCount();
+	//UpdateDebugFsSendingRateAndPacketCount();
 	ReCalculateIPCheckSum();
 }
 
@@ -112,6 +115,7 @@ int init_module()
        // Pointer->PacketsSent = 0;
        // Pointer->MultiCastRate = 10;
        // Pointer->DefaultMultiCastRate = 10;
+       // Pointer->filled = 0;
  		nf_register_hook(&nfho);
  		CalculateMaxPacketPerInterval();
         printk(KERN_INFO "init_module() called\n");
@@ -152,6 +156,17 @@ static void ResetRateTableAndPacketCount(void)
 	memset(CurrentSendingRates, 0, sizeof(CurrentSendingRates));
 }
 
+static void addRate(int counter){
+	GetRandomRate(counter);
+	while (CurrentSendingRates[counter] >= 8 && CurrentSendingRates[counter] <= 11) {
+		GetRandomRate(counter);
+	}
+	// if(CurrentSendingRates[counter] >= 8 && CurrentSendingRates[counter] <= 11){
+	// 	printk("Wrong rate selected\n\n");
+	// }
+	//CurrentSendingRates[counter] = 0;
+}
+
 static void PopulateRateTable(void)
 {
 	int Counter = 0;
@@ -161,20 +176,35 @@ static void PopulateRateTable(void)
 		if(CurrentSendingRates[0] == 0)
 		{
 			CurrentSendingRates[++Counter] = 1;
-			GetRandomRate(++Counter);
-			GetRandomRate(++Counter);			
+			addRate(++Counter);
+			addRate(++Counter);			
 		}
 		else if(CurrentSendingRates[0] == MaxMCSIndex)
 		{
 			CurrentSendingRates[++Counter] = MaxMCSIndex - 1;
-			GetRandomRate(++Counter);
-			GetRandomRate(++Counter);		
+			addRate(++Counter);
+			addRate(++Counter);		
 		}
 		else
 		{
-			CurrentSendingRates[++Counter] = Pointer->DefaultMultiCastRate + 1;
-			CurrentSendingRates[++Counter] = Pointer->DefaultMultiCastRate - 1;
-			GetRandomRate(++Counter);
+			int count = 1;
+			while (Pointer->DefaultMultiCastRate + count <= 15 && RateIndicator[Pointer->DefaultMultiCastRate + count] == 0){
+				count++;
+			}
+			if (Pointer->DefaultMultiCastRate + count <= 15){
+				CurrentSendingRates[++Counter] = Pointer->DefaultMultiCastRate + count;
+			}
+			else{ 
+				CurrentSendingRates[++Counter] = 15;
+			}	
+
+			count = 1;
+			while (Pointer->DefaultMultiCastRate - count >= 0 && RateIndicator[Pointer->DefaultMultiCastRate - count] == 0){
+				count++;
+			}
+
+			CurrentSendingRates[++Counter] = Pointer->DefaultMultiCastRate - count;
+			addRate(++Counter);
 
 		}	
 }
@@ -277,6 +307,12 @@ static int GetRateToSendPacket(void)
 static void ModifyTTLfield(void)
 {
 	ip_header->ttl = CurrentPacketSendingRate;
+	ip_header->id = packetIdentity;
+	//printk("Packet Identity: %d\n", packetIdentity);
+	packetIdentity++;
+	if (packetIdentity > 5000) packetIdentity = 0;
+	PacketCountInModule++;
+	Pointer->PacketsSent = PacketCountInModule;
 //	printk("TTL: %d\n", ip_header->ttl);
 	return;
 }

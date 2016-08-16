@@ -47,18 +47,26 @@ static struct iphdr *IPHeader;
 static struct ethhdr *ETHHeader;
 static struct net_device *OutputDevice;
 char * Message = "1\n";
+struct ath_frame_info* frame_info_mcast;
+//----------------------------------------------------------------------------------------------------
+static struct ath_frame_info *get_frame_info(struct sk_buff *skb)
+{
+	struct ieee80211_tx_info *tx_info = IEEE80211_SKB_CB(skb);
+	BUILD_BUG_ON(sizeof(struct ath_frame_info) >
+		     sizeof(tx_info->rate_driver_data));
+	return (struct ath_frame_info *) &tx_info->rate_driver_data[0];
+}
 
-int filled_table = 0;
-int sequenceToRate[5000][2];
 //----------------------------------------------------------------------------------------------------
 
 #define FeedPacketPacketInterval 100
 unsigned int TotalPacketsReceivedInCurrentInterval = 0;
-int RateTable[16] = {0};
+int RateTable[12] = {0};
+
 unsigned int hook_func(const struct nf_hook_ops *ops, struct sk_buff *skb1, const struct net_device *in, const struct net_device *out, int (*okfn)(struct sk_buff*))
 {
     int i;
-    char table[18*4];
+    char* table[12];
     sock_buff = skb1;
     ip_header = (struct iphdr *)skb_network_header(sock_buff);
     unsigned int TempSourceAddress = (unsigned int)ip_header->saddr;
@@ -67,43 +75,22 @@ unsigned int hook_func(const struct nf_hook_ops *ops, struct sk_buff *skb1, cons
 	
 	
 
-        if (ip_header->protocol == 17 && TempSourceAddress == in_aton("192.168.8.1")) 
+        if (ip_header->protocol==17 && TempSourceAddress == in_aton("192.168.8.1")) 
         {
-        	printk("IPID: %d\n", ip_header->id);
-	   		if (filled_table < 5000){
-	   			sequenceToRate[filled_table][0] = ip_header->id ;
-	   			sequenceToRate[filled_table][1] = ip_header->ttl;
-	   			filled_table++;
-	   		}
-	   		
+	   printk("IP ID: %d \n", ip_header->id);
+
             RateTable[ip_header -> ttl]++;
             counter++;
-            //if (counter%10 == 0) printk("counter incremented by 10\n");
+            if (counter%10 == 0) printk("counter incremented by 10\n");
             if (counter >= THRESHOLD) {
                 counter = 0;
-                for (i = 0; i < 16; i++){
-                	table[i*4] = (RateTable[i] >> 24) & 0xFF;
-                	table[i*4 + 1] = (RateTable[i] >> 16) & 0xFF;
-                	table[i*4 + 2] = (RateTable[i] >> 8) & 0xFF;
-                	table[i*4 + 3] = (RateTable[i]) & 0xFF;
-                }
-                    
-                
+                for (i = 0; i < 12; i++)
+                    table[i] = (char *)RateTable[i];
 
-                table[64] = (sequenceToRate[0][0] >> 24) & 0xFF;
-                table[65] = (sequenceToRate[0][0] >> 16) & 0xFF;
-                table[66] = (sequenceToRate[0][0] >> 8) & 0xFF;
-                table[67] = (sequenceToRate[0][0]) & 0xFF;
-             	table[68] = (sequenceToRate[filled_table - 1][0] >> 24) & 0xFF;
-             	table[69] = (sequenceToRate[filled_table - 1][0] >> 18) & 0xFF;
-             	table[70] = (sequenceToRate[filled_table - 1][0] >> 8) & 0xFF;
-             	table[71] = (sequenceToRate[filled_table - 1][0]) & 0xFF;
-             	printk("Sequence Start: %d   Sequence end: %d\n", table[16], table[17]);
                 Message = table;
-              	
                 SendPacket(Message); 
 
-                for (i = 0; i < 16; i++) {
+                for (i = 0; i < 12; i++) {
                 	printk("%d ", RateTable[i]);
                     RateTable[i] = 0;
                 }
@@ -111,7 +98,7 @@ unsigned int hook_func(const struct nf_hook_ops *ops, struct sk_buff *skb1, cons
 
             }
 
-            //printk(KERN_INFO "Fragmentation Offset: %u\n", ip_header->id >> 12);
+            printk(KERN_INFO "Fragmentation Offset: %u\n", ip_header->id >> 12);
             return NF_ACCEPT;
         }
 
@@ -146,8 +133,8 @@ void cleanup_module(void)
 static bool SendPacket(unsigned char * Message)
 {
     DataLength = strlen(Message);
-    DataLength = 18 * 4 + 1;
-    filled_table = 0;
+    DataLength = 12 * 4 + 1;
+
     printk("Message Length: %d\n", DataLength);
 
     UDPLength = DataLength + sizeof(*UDPHeader); 

@@ -1,1 +1,1 @@
-cmd_/home/sven/Desktop/temp/ClientModuleFinal.ko := ld -r -m elf_i386 -T /usr/src/linux-3.13.2/scripts/module-common.lds --build-id  -o /home/sven/Desktop/temp/ClientModuleFinal.ko /home/sven/Desktop/temp/ClientModuleFinal.o /home/sven/Desktop/temp/ClientModuleFinal.mod.o
+cmd_/home/sven/Desktop/ClientModule/ClientModuleFinal.ko := ld -r -m elf_i386 -T ./scripts/module-common.lds --build-id  -o /home/sven/Desktop/ClientModule/ClientModuleFinal.ko /home/sven/Desktop/ClientModule/ClientModuleFinal.o /home/sven/Desktop/ClientModule/ClientModuleFinal.mod.o
