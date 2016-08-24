@@ -954,11 +954,13 @@ void ath_ant_comb_scan(struct ath_softc *sc, struct ath_rx_status *rs);
 #define ATH9K_NUM_CHANCTX  2 /* supports 2 operating channels */
 
 struct ath_softc {
+
 	/////////////////////Huzaifa/////////////////////
 	unsigned int MultiCastRate;
 	unsigned int DefaultMultiCastRate;
 	unsigned int PacketsSent;
 	unsigned int filled;
+	unsigned int sequenceToRate[5000][2];
 	/////////////////////Huzaifa/////////////////////
 
 	struct ieee80211_hw *hw;
@@ -1044,7 +1046,6 @@ struct ath_softc {
 	struct sk_buff *tx99_skb;
 	bool tx99_state;
 	s16 tx99_power;
-
 
 #ifdef CONFIG_ATH9K_WOW
 	u32 wow_intr_before_sleep;

@@ -1,0 +1,1 @@
+cmd_/home/mubeen/Desktop/recv/AP_FeedBack_recv.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/mubeen/Desktop/recv/AP_FeedBack_recv.ko /home/mubeen/Desktop/recv/AP_FeedBack_recv.o /home/mubeen/Desktop/recv/AP_FeedBack_recv.mod.o

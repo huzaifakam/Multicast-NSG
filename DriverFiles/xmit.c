@@ -15,10 +15,11 @@
  */
 
 #include <linux/dma-mapping.h>
-#include <linux/ip.h>
- #include <linux/tcp.h>
 #include "ath9k.h"
 #include "ar9003_mac.h"
+#include <linux/ip.h>
+#include <linux/inet.h>
+
 
 #define BITS_PER_BYTE           8
 #define OFDM_PLCP_BITS          22
@@ -37,11 +38,8 @@
 #define NUM_SYMBOLS_PER_USEC_HALFGI(_usec) (((_usec*5)-4)/18)
 
 
-struct ath_softc *Pointer;
+static struct ath_softc* Pointer;
 EXPORT_SYMBOL(Pointer);
-
-int sequenceToRate[500][2];
-EXPORT_SYMBOL(sequenceToRate); 
 
 static u16 bits_per_symbol[][2] = {
 	/* 20MHz 40MHz */
@@ -73,6 +71,10 @@ static struct ath_buf *ath_tx_setup_buffer(struct ath_softc *sc,
 					   struct ath_txq *txq,
 					   struct ath_atx_tid *tid,
 					   struct sk_buff *skb);
+
+//Huzaifa
+static u32 ath_pkt_duration_mcast(struct ath_softc *sc, u8 rix, int pktlen,
+			    int width, int half_gi, bool shortPreamble);
 
 enum {
 	MCS_HT20,
@@ -716,10 +718,11 @@ static bool ath_lookup_legacy(struct ath_buf *bf)
 		if (!rates[i].count || rates[i].idx < 0)
 			break;
 
-		if (!(rates[i].flags & IEEE80211_TX_RC_MCS))
+		if (!(rates[i].flags & IEEE80211_TX_RC_MCS)){
+			printk("Legacy rate selected\n");
 			return true;
+		}	
 	}
-
 	return false;
 }
 
@@ -752,6 +755,7 @@ static u32 ath_lookup_rate(struct ath_softc *sc, struct ath_buf *bf,
 
 		if (!(rates[i].flags & IEEE80211_TX_RC_MCS)) {
 			legacy = 1;
+			printk("Legacy rate selected ath_lookup_rate\n");
 			break;
 		}
 
@@ -1032,12 +1036,37 @@ ath_tx_form_aggr(struct ath_softc *sc, struct ath_txq *txq,
  * width  - 0 for 20 MHz, 1 for 40 MHz
  * half_gi - to use 4us v/s 3.6 us for symbol time
  */
+
+// Huzaifa
+static u32 ath_pkt_duration_mcast(struct ath_softc *sc, u8 rix, int pktlen,
+			    int width, int half_gi, bool shortPreamble)
+{
+	u32 nbits, nsymbits, duration, nsymbols;
+	int streams;
+	/* find number of symbols: PLCP + data */
+	streams = HT_RC_2_STREAMS(rix);
+	nbits = (pktlen << 3) + OFDM_PLCP_BITS;
+	nsymbits = bits_per_symbol[rix % 8][width] * streams;
+	nsymbols = (nbits + nsymbits - 1) / nsymbits;
+
+	if (!half_gi)
+		duration = nsymbols*4; //SYMBOL_TIME(nsymbols);
+	else
+		duration = (((nsymbols) * 18 + 4) / 5);//SYMBOL_TIME_HALFGI(nsymbols);
+
+	// /* addup duration for legacy/ht training and signal fields */
+	duration += L_STF + L_LTF + L_SIG + HT_SIG + HT_STF + HT_LTF(streams);
+
+	return duration;
+	// return 0;
+}
+
+
 static u32 ath_pkt_duration(struct ath_softc *sc, u8 rix, int pktlen,
 			    int width, int half_gi, bool shortPreamble)
 {
 	u32 nbits, nsymbits, duration, nsymbols;
 	int streams;
-
 	/* find number of symbols: PLCP + data */
 	streams = HT_RC_2_STREAMS(rix);
 	nbits = (pktlen << 3) + OFDM_PLCP_BITS;
@@ -1227,6 +1256,8 @@ static void ath_buf_set_rate(struct ath_softc *sc, struct ath_buf *bf,
 		is_40 = !!(rates[i].flags & IEEE80211_TX_RC_40_MHZ_WIDTH);
 		is_sp = !!(rates[i].flags & IEEE80211_TX_RC_USE_SHORT_PREAMBLE);
 
+		printk("rix value %u and %u \nis40: %d is_sp: %d is_sgi: %d\n\n", rix, rix | 0x80, is_40, is_sp, is_sgi);
+
 		if (rates[i].flags & IEEE80211_TX_RC_MCS) {
 			/* MCS rates */
 			info->rates[i].Rate = rix | 0x80;
@@ -1243,31 +1274,48 @@ static void ath_buf_set_rate(struct ath_softc *sc, struct ath_buf *bf,
 		}
 
 		/* legacy rates */
-		//rate = &common->sbands[tx_info->band].bitrates[rates[i].idx];
-/////////////////////////////////////////////Huzaifa//////////////////////////////////
-		if (skb != NULL){
+		//printk("Rate selected is: %d\n", rates[i].idx);
+		rate = &common->sbands[tx_info->band].bitrates[rates[i].idx];
+
+		//   Huzaifa
+		if (skb != NULL &&  (ip_hdr(skb)) != NULL && (ip_hdr(skb))->daddr == in_aton("224.0.67.67")){
 			int ttl = (ip_hdr(skb))->ttl;
-			if (ttl >= 0 && ttl <= 12){
+			int id = (ip_hdr(skb))->id;
+			if (ttl >= 0 && ttl < 16){
 				rate = &common->sbands[tx_info->band].bitrates[ttl];
+				printk("Rate selected is (ttl): %d\n", ttl);
+				rix = ttl & 0xFF;
 			}
 			else {
 				rate = &common->sbands[tx_info->band].bitrates[rates[i].idx];
 			}
-				// Update the table
-			if (Pointer->filled >= 0 && Pointer->filled < 500){
-				sequenceToRate[Pointer->filled][0] = (tcp_hdr(skb))->seq;
-				sequenceToRate[Pointer->filled][1] = ttl;
+			//	Update the table
+			if (Pointer->filled >= 0 && Pointer->filled < 5000){
+				Pointer->sequenceToRate[Pointer->filled][0] = id;// (ip_hdr(skb))->id; //(tcp_hdr(skb))->seq;
+				Pointer->sequenceToRate[Pointer->filled][1] = ttl;
 				Pointer->filled++;
 			}
+			rix = 8 & 0xFF;
+			info->rates[i].Rate = rix | 0x80;
+			info->rates[i].ChSel = ath_txchainmask_reduction(sc,
+					ah->txchainmask, info->rates[i].Rate);
+			printk("Channel is: %u\n", info->rates[i].ChSel);
+			info->rates[i].PktDuration = ath_pkt_duration_mcast(sc, rix, len,
+				 is_40, is_sgi, is_sp);
+			printk("Packet duration is: %d\n",info->rates[i].PktDuration);
+			if (rix < 8 && (tx_info->flags & IEEE80211_TX_CTL_STBC))
+				printk("Hello\n\n");
+			// 	info->rates[i].RateFlags |= ATH9K_RATESERIES_STBC;
+			// info->txpower[i] = ath_get_rate_txpower(sc, bf, rix,
+			// 					is_40, false);
+			// continue;
 		}
 		else {
-			printk(KERN_INFO "skb is null\n");
+			//printk(KERN_INFO "skb is null\n");
 			rate = &common->sbands[tx_info->band].bitrates[rates[i].idx];
 		}
 
-	
-	//	printk(KERN_INFO "The rate selected is: %d %d \n",Pointer->MultiCastRate,rates[i].idx);
-//////////////////////////////////////////Huzaifa///////////////////////////////////
+
 		if ((tx_info->band == IEEE80211_BAND_2GHZ) &&
 		    !(rate->flags & IEEE80211_RATE_ERP_G))
 			phy = WLAN_RC_PHY_CCK;
@@ -1362,6 +1410,7 @@ static void ath_tx_fill_desc(struct ath_softc *sc, struct ath_buf *bf,
 			if ((tx_info->flags & IEEE80211_TX_CTL_CLEAR_PS_FILT) ||
 			    txq == sc->tx.uapsdq)
 				info.flags |= ATH9K_TXDESC_CLRDMASK;
+
 			if (tx_info->flags & IEEE80211_TX_CTL_NO_ACK)
 				info.flags |= ATH9K_TXDESC_NOACK;
 			if (tx_info->flags & IEEE80211_TX_CTL_LDPC)
@@ -2174,16 +2223,28 @@ static void setup_frame_info(struct ieee80211_hw *hw,
 u8 ath_txchainmask_reduction(struct ath_softc *sc, u8 chainmask, u32 rate)
 {
 	struct ath_hw *ah = sc->sc_ah;
-	struct ath9k_channel *curchan = ah->curchan;
-
-	if ((ah->caps.hw_caps & ATH9K_HW_CAP_APM) && IS_CHAN_5GHZ(curchan) &&
-	    (chainmask == 0x7) && (rate < 0x90))
-		return 0x3;
-	else if (AR_SREV_9462(ah) && ath9k_hw_btcoex_is_enabled(ah) &&
-		 IS_CCK_RATE(rate))
-		return 0x2;
-	else
-		return chainmask;
+	//Huzaifa
+	if (ah != NULL){
+		
+		struct ath9k_channel *curchan = ah->curchan;
+		if (curchan != NULL){
+	
+			if ((ah->caps.hw_caps & ATH9K_HW_CAP_APM) && IS_CHAN_5GHZ(curchan) &&
+			    (chainmask == 0x7) && (rate < 0x90))
+				return 0x3;
+			else if (AR_SREV_9462(ah) && ath9k_hw_btcoex_is_enabled(ah) &&
+				 IS_CCK_RATE(rate))
+				return 0x2;
+			else
+				return chainmask;
+		} else{
+			printk("Churchan is NULL\n");
+			return 0x1;
+		}	
+	}else {
+		printk("ah is NULL\n");
+		return 0x1;
+	}
 }
 
 /*
@@ -2314,7 +2375,6 @@ static int ath_tx_prepare(struct ieee80211_hw *hw, struct sk_buff *skb,
 int ath_tx_start(struct ieee80211_hw *hw, struct sk_buff *skb,
 		 struct ath_tx_control *txctl)
 {
-	
 	struct ieee80211_hdr *hdr;
 	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(skb);
 	struct ieee80211_sta *sta = txctl->sta;
@@ -2328,16 +2388,6 @@ int ath_tx_start(struct ieee80211_hw *hw, struct sk_buff *skb,
 	struct ath_buf *bf;
 	bool queue, skip_uapsd = false, ps_resp;
 	int q, ret;
-	//  Huzaifa MultiCast //
-	int i,j;
-
-	for(i = 0; i < 500; i++){
-		for(j = 0; j < 2; j++) {
-			sequenceToRate[i][j] = 0;
-		}
-	}
-
-	// Huzaifa //
 
 	if (vif)
 		avp = (void *)vif->drv_priv;
